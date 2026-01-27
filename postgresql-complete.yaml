@@ -19,8 +19,9 @@ services:
       retries: 5
     networks:
       - postgres_network
+
 volumes:
-  postgresql_data:
+  postgresql_data: # Define the storage volume
 
 networks:
   postgres_network:
