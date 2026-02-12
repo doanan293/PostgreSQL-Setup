@@ -2,27 +2,30 @@ services:
   postgres:
     image: postgres:17.7 # To download a specific version, here the version 17.4 of Postgresql
     container_name: postgres
-    restart: unless-stopped  # 1. Auto-restart on crash/reboot
+    restart: unless-stopped # 1. Auto-restart on crash/reboot
     volumes:
       - postgresql_data:/var/lib/postgresql/data
     env_file:
-      - .env    
+      - .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432" 
-    healthcheck:          
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - postgres_network
+      - "5432:5432"
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=andv
+      - MONGO_INITDB_ROOT_PASSWORD=Doanan_02092003
+    volumes:
+      - mongodb_data:/data/db
 
 volumes:
   postgresql_data: # Define the storage volume
+  mongodb_data: # Define the storage volume for MongoDB
 
-networks:
-  postgres_network:
-    driver: bridge
