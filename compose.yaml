@@ -26,6 +26,6 @@ services:
       - mongodb_data:/data/db
 
 volumes:
-  postgresql_data: # Define the storage volume
-  mongodb_data: # Define the storage volume for MongoDB
+  postgresql_data:
+  mongodb_data:
 
